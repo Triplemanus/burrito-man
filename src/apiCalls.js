@@ -11,7 +11,6 @@ export const postOrders = async order => {
     headers: {
       "Content-Type": "application/json"
     },
-    // body: JSON.stringify({...order}),
     body: JSON.stringify({
       name: order.name,
       ingredients: order.ingredients
