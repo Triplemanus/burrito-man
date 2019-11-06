@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { postOrders } from '../../apiCalls';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { addOrders, isLoading, hasErrored } from '../../actions/index';
 
 class OrderForm extends Component {
   constructor(props) {
@@ -21,8 +25,25 @@ class OrderForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    this.saveOrders(e);
     this.clearInputs();
   }
+
+
+  saveOrders = async (e) => {
+    const { postOrders, isLoading, hasErrored } = this.props;
+    e.preventDefault();
+    try {
+      isLoading(true);
+      const newOrderId = await postOrders({ ...this.state, id: Date.now() })
+      addOrders({ ...this.state, id: newOrderId })
+      isLoading(false);
+      // const newOrder = await postOrders(order);
+    } catch ({ message }) {
+      isLoading(false);
+      hasErrored(message)
+    }
+  };
 
   clearInputs = () => {
     this.setState({name: '', ingredients: []});
@@ -52,12 +73,19 @@ class OrderForm extends Component {
 
         <p>Order: { this.state.ingredients.join(', ') || 'Nothing selected' }</p>
 
-        <button onClick={e => this.handleSubmit(e)}>
+       {this.state.ingredients[0] &&  <button onClick={e => this.handleSubmit(e)}>
           Submit Order
-        </button>
+        </button>}
       </form>
     )
   }
 }
 
-export default OrderForm;
+export const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    isLoading,
+    hasErrored,
+    postOrders
+  }, dispatch)
+)
+export default connect(null, mapDispatchToProps)(OrderForm)
