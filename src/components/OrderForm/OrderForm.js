@@ -35,8 +35,8 @@ class OrderForm extends Component {
     e.preventDefault();
     try {
       isLoading(true);
-      const newOrder = await postOrders({ ...this.state, id: Date.now() })
-      addOrders({  newOrder })
+      const order = await postOrders({ id: Date.now(), ...this.state,  })
+      addOrders({  order })
       isLoading(false);
     } catch ({ message }) {
       isLoading(false);

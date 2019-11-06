@@ -7,9 +7,9 @@ import { getOrders } from '../../apiCalls';
 import OrderForm from '../../components/OrderForm/OrderForm';
 
 export class Orders extends React.Component {
-  constructor(orders) {
+  constructor() {
     super();
-    this.props = orders;
+    // this.props = props;
   }
   componentDidMount() {
     getOrders()
@@ -31,13 +31,9 @@ export class Orders extends React.Component {
         </div>
       )
     });
-    console.log('props', props);
+    // console.log('props', props);
     return (
         <main className="App">
-          <header>
-            <h1>Burrito Builder</h1>
-            <OrderForm />
-          </header>
           <section>
           { orderEls.length ? orderEls : <p>No orders yet!</p> }
           </section>
@@ -47,6 +43,10 @@ export class Orders extends React.Component {
     )
   }
 }
+          // <header>
+          //   <h1>Burrito Builder</h1>
+          //   <OrderForm />
+          // </header>
 
 export const mapStateToProps = ({ orders }) => ({
   orders: orders
