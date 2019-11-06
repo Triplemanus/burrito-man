@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import OrderForm from '../../components/OrderForm/OrderForm';
+import Orders from '../../components/Orders/Orders';
 
 export const App = () => {
 
@@ -8,11 +9,12 @@ export const App = () => {
       <main className="App">
         <header>
           <h1>Burrito Builder</h1>
-          <OrderForm />
+        <OrderForm />
+          <Orders />
         </header>
       </main>
     );
   }
-
-export default App;
+  
+  export default App;
 
