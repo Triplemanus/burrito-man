@@ -1,16 +1,21 @@
 export const getOrders = () => {
   return fetch('http://localhost:3001/api/v1/orders')
       .then(response => response.json())
-};
+}
 
-export const postOrders = async (order) => {
+export const postOrders = async order => {
+  console.log('order', order);
   const url = 'http://localhost:3001/api/v1/orders';
   const options = {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({...order})
+    // body: JSON.stringify({...order}),
+    body: JSON.stringify({
+      name: order.name,
+      ingredients: order.ingredients
+    }),
   };
 
   const response = await fetch(url, options);
@@ -19,4 +24,4 @@ export const postOrders = async (order) => {
   }
   const newOrderId = await response.json();
   return newOrderId;
-};
+}

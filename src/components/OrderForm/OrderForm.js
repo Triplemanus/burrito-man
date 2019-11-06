@@ -31,14 +31,13 @@ class OrderForm extends Component {
 
 
   saveOrders = async (e) => {
-    const { postOrders, isLoading, hasErrored } = this.props;
+    const { addOrders, isLoading, hasErrored } = this.props;
     e.preventDefault();
     try {
       isLoading(true);
-      const newOrderId = await postOrders({ ...this.state, id: Date.now() })
-      addOrders({ ...this.state, id: newOrderId })
+      const newOrder = await postOrders({ ...this.state, id: Date.now() })
+      addOrders({  newOrder })
       isLoading(false);
-      // const newOrder = await postOrders(order);
     } catch ({ message }) {
       isLoading(false);
       hasErrored(message)
@@ -85,7 +84,7 @@ export const mapDispatchToProps = dispatch => (
   bindActionCreators({
     isLoading,
     hasErrored,
-    postOrders
+    addOrders
   }, dispatch)
 )
 export default connect(null, mapDispatchToProps)(OrderForm)

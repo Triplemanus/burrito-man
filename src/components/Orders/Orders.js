@@ -7,16 +7,16 @@ import { getOrders } from '../../apiCalls';
 import OrderForm from '../../components/OrderForm/OrderForm';
 
 export class Orders extends React.Component {
-  constructor(props) {
+  constructor(orders) {
     super();
-    this.props = props;
+    this.props = orders;
   }
-
   componentDidMount() {
     getOrders()
-      .then(data => this.props.setOrders(data.orders))
-      .catch(err => console.error('Error fetching:', err));
+    .then(data => this.props.setOrders(data.orders))
+    .catch(err => console.error('Error fetching:', err));
   }
+ 
 
   render () {
     const orderEls = this.props.orders.map(order => {
@@ -31,7 +31,7 @@ export class Orders extends React.Component {
         </div>
       )
     });
-
+    console.log('props', props);
     return (
         <main className="App">
           <header>
