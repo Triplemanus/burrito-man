@@ -2,13 +2,11 @@ import React from 'react';
 import './Orders.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setOrders } from '../../actions';
+import { setOrders, isLoading } from '../../actions';
 import { getOrders } from '../../apiCalls';
-// import Orders from '../../components/Orders/Orders';
 import OrderForm from '../../components/OrderForm/OrderForm';
 
-export class Orders extends  React.Component {
-
+export class Orders extends React.Component {
   constructor(props) {
     super();
     this.props = props;
@@ -20,21 +18,19 @@ export class Orders extends  React.Component {
       .catch(err => console.error('Error fetching:', err));
   }
 
-
-  
   render () {
     const orderEls = this.props.orders.map(order => {
-       return (
-         <div className="order">
-           <h3>{order.name}</h3>
-           <ul className="ingredient-list">
-             {order.ingredients.map(ingredient => {
-               return <li>{ingredient}</li>
-             })}
-           </ul>
-         </div>
-       )
-     });
+      return (
+        <div className="order">
+          <h3>{order.name}</h3>
+          <ul className="ingredient-list">
+            {order.ingredients.map(ingredient => {
+              return <li>{ingredient}</li>
+            })}
+          </ul>
+        </div>
+      )
+    });
 
     return (
         <main className="App">
@@ -51,7 +47,6 @@ export class Orders extends  React.Component {
     )
   }
 }
-{/* <Orders orders={this.props.orders}/> */}
 
 export const mapStateToProps = ({ orders }) => ({
   orders: orders
@@ -60,6 +55,7 @@ export const mapStateToProps = ({ orders }) => ({
 export const mapDispatchToProps = dispatch => (
   bindActionCreators({
     setOrders,
+    isLoading
   }, dispatch)
 );
 

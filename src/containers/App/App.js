@@ -1,10 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { setOrders } from '../../actions';
-import { getOrders } from '../../apiCalls';
-import Orders from '../../components/Orders/Orders';
 import OrderForm from '../../components/OrderForm/OrderForm';
 
 export const App = () => {
